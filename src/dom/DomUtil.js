@@ -221,6 +221,9 @@ export function setTransform(el, offset, scale) {
 // (used by Leaflet internally to position its layers).
 export function setPosition(el, point) {
 
+  // Round if using webkit and not retina to avoid blurry text
+  if (Browser.webkit && !Browser.retina) point = point.round();
+
 	/*eslint-disable */
 	el._leaflet_pos = point;
 	/* eslint-enable */
