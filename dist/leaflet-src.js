@@ -1,5 +1,5 @@
 /* @preserve
- * Leaflet 1.3.4, a JS library for interactive maps. http://leafletjs.com
+ * Leaflet 1.3.4+roundPosition.2e2bf97, a JS library for interactive maps. http://leafletjs.com
  * (c) 2010-2018 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 
@@ -9,7 +9,7 @@
 	(factory((global.L = {})));
 }(this, (function (exports) { 'use strict';
 
-var version = "1.3.4";
+var version = "1.3.4+roundPosition.2e2bf97d";
 
 /*
  * @namespace Util
@@ -2423,6 +2423,9 @@ function setTransform(el, offset, scale) {
 // using CSS translate or top/left positioning depending on the browser
 // (used by Leaflet internally to position its layers).
 function setPosition(el, point) {
+
+  // Round if using webkit and not retina to avoid blurry text
+  if (webkit && !retina) point = point.round();
 
 	/*eslint-disable */
 	el._leaflet_pos = point;
